@@ -11,54 +11,56 @@
 // POST http://localhost:333/videos
 // O id é um router parameter
 
-import {fastify} from 'fastify'
-import { DataBaseMemory } from './database-memory.js'
-import { request } from 'http'
+import { fastify } from "fastify";
+import { DataBaseMemory } from "./database-memory.js";
+import { request } from "http";
 
-const server = fastify()
+const server = fastify();
 
-const database = new DataBaseMemory()
+const database = new DataBaseMemory();
 
-server.post('/videos', (request, reply) => {
-    const {title, description, duration} = request.body
+server.post("/videos", (request, reply) => {
+  const { title, description, duration } = request.body;
 
-   database.create({
+  database.create({
     title,
     description,
     duration,
-   })
+  });
 
-
-
-   return reply.status(201).send()
-})
+  return reply.status(201).send();
+});
 // GET http://localhost:333/videos
-server.get('/videos', () => {
-    const videos = database.list()
+server.get("/videos", (request) => {
+  const search = request.query.search
 
-    return videos
-})
+
+  const videos = database.list(search)
+
+  return videos;
+});
 // PUT http://localhost:333/videos
-server.put('/videos/:id', (request, reply) => {
-    const videoId = request.params.id
-    const {title, description, duration} = request.body
+server.put("/videos/:id", (request, reply) => {
+  const videoId = request.params.id;
+  const { title, description, duration } = request.body;
 
-    database.update(videoId,  {
-        title,
-        description,
-        duration,
-    })
+  database.update(videoId, {
+    title,
+    description,
+    duration,
+  });
 
-    return reply.status(204).send()
-})
+  return reply.status(204).send();
+});
 // DELET http://localhost:333/videos
-server.delete('/videos/:id', () => {
-    return 'Rota Get node'
-})
+server.delete("/videos/:id", (request, reply) => {
+  const videoId = request.params.id;
 
+  database.delete(videoId);
+
+  return reply.status(204).send();
+});
 
 server.listen({
-    port: 3333,
-})
-
-
+  port: 3333,
+});
