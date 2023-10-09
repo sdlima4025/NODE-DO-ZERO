@@ -11,38 +11,39 @@
 // POST http://localhost:333/videos
 // O id é um router parameter
 
-import { fastify } from "fastify";
-import { DataBaseMemory } from "./database-memory.js";
-import { request } from "http";
+import { fastify } from "fastify"
+import { DataBasePostgres } from "./database-postgres.js"
+// import { DataBaseMemory } from "./database-memory.js";
+// import { request } from "http";
 
-const server = fastify();
+const server = fastify()
 
-const database = new DataBaseMemory();
+// const database = new DataBaseMemory()
+const database = new DataBasePostgres()
 
-server.post("/videos", (request, reply) => {
-  const { title, description, duration } = request.body;
+server.post("/videos", async(request, reply) => {
+  const { title, description, duration } = request.body
 
-  database.create({
+   await database.create({
     title,
     description,
     duration,
-  });
+  })
 
-  return reply.status(201).send();
-});
+  return reply.status(201).send()
+})
 // GET http://localhost:333/videos
-server.get("/videos", (request) => {
+server.get('/videos', async(request) => {
   const search = request.query.search
 
+  const videos = await database.list(search)
 
-  const videos = database.list(search)
-
-  return videos;
-});
+  return videos
+})
 // PUT http://localhost:333/videos
-server.put("/videos/:id", (request, reply) => {
+server.put('/videos/:id', async (request, reply) => {
   const videoId = request.params.id;
-  const { title, description, duration } = request.body;
+  const { title, description, duration } = request.body
 
   database.update(videoId, {
     title,
@@ -50,17 +51,17 @@ server.put("/videos/:id", (request, reply) => {
     duration,
   });
 
-  return reply.status(204).send();
-});
+  return reply.status(204).send()
+})
 // DELET http://localhost:333/videos
-server.delete("/videos/:id", (request, reply) => {
+server.delete("/videos/:id",async (request, reply) => {
   const videoId = request.params.id;
 
-  database.delete(videoId);
+  await database.delete(videoId)
 
-  return reply.status(204).send();
-});
+  return reply.status(204).send()
+})
 
 server.listen({
   port: 3333,
-});
+})
