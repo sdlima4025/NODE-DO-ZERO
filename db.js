@@ -1,8 +1,3 @@
-/**
- * postgres://sdlima4025:
-@ep-dark-poetry-01481160.us-east-2.aws.neon.tech/neondb
-
- */
 import 'dotenv/config'
 import postgres from 'postgres'
 

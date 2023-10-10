@@ -10,7 +10,7 @@
     "dev": "node --watch --no-warnings server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "sdlima",
   "license": "ISC",
   "dependencies": {
     "fastify": "^4.23.2",

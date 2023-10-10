@@ -1,8 +1,8 @@
 import {sql} from './db.js'
 
-// sql`DROP TABLE IF EXISTS videos;`.then(()=> {
-//     console.log('Tabela Deletada!')
-// })
+sql`DROP TABLE IF EXISTS videos;`.then(()=> {
+    console.log('Tabela Deletada!')
+})
 
 sql `
 CREATE TABLE videos (

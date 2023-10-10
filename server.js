@@ -1,16 +1,3 @@
-// import{createServer} from 'node:http';
-
-// const server = createServer((request, response) => {
-// response.write('Imprima na tela');
-//     return response.end();
-// })
-
-// server.listen(3333);
-
-// Servidor com fastify
-// POST http://localhost:333/videos
-// O id é um router parameter
-
 import { fastify } from "fastify"
 import { DataBasePostgres } from "./database-postgres.js"
 // import { DataBaseMemory } from "./database-memory.js";
