@@ -19,7 +19,7 @@ server.post("/videos", async(request, reply) => {
 
   return reply.status(201).send()
 })
-// GET http://localhost:333/videos
+
 server.get('/videos', async(request) => {
   const search = request.query.search
 
@@ -27,22 +27,22 @@ server.get('/videos', async(request) => {
 
   return videos
 })
-// PUT http://localhost:333/videos
+
 server.put('/videos/:id', async (request, reply) => {
-  const videoId = request.params.id;
+  const videoId = request.params.id
   const { title, description, duration } = request.body
 
-  database.update(videoId, {
+ await database.update(videoId, {
     title,
     description,
     duration,
-  });
+  })
 
   return reply.status(204).send()
 })
-// DELET http://localhost:333/videos
+
 server.delete("/videos/:id",async (request, reply) => {
-  const videoId = request.params.id;
+  const videoId = request.params.id
 
   await database.delete(videoId)
 
