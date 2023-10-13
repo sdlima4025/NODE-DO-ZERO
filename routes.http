@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "title": "Video ",
-    "description": "Esse é o terceiro video",
+    "description": "Esse é o segundo video",
     "duration": 180
 }
 
